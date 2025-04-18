@@ -1,19 +1,10 @@
 const dotenv = require("dotenv");
 const express = require('express');
-const session = require('express-session');
-const passport = require('./router/passport'); // Corrected path
 dotenv.config({path:"./config.env"});
-
+const path = require('path');
 const app = express();
 
-app.use(session({
-    resave: false,
-    saveUninitialized: true,
-    secret: process.env.SESSION_SECRET 
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
+app.use('/assets/images', express.static(path.join(__dirname, './assets/images')));
 
 app.use(require('./router/auth'));
 
